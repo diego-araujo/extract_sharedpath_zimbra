@@ -6,6 +6,7 @@ import json
 def storepath(path):
    hs = open("allsharedpath.txt","a")
    hs.write(path)
+   hs.write("\n")
    hs.close()
 
 def process_account(account):
