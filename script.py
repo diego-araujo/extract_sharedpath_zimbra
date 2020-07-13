@@ -10,7 +10,6 @@ def storepath(path):
    hs.close()
 
 def process_account(account):
-    print(account)
     command = ['/opt/zimbra/bin/zmmailbox', '-z', '-m', account, 'gaf', '-v']
     folders = Popen(command, stdout=PIPE)
     cmd_response = ''
