@@ -6,10 +6,10 @@ import json
 def storepath(path):
    hs = open("allsharedpath.txt","a")
    hs.write(path)
-   hs.write("\n")
    hs.close()
 
 def process_account(account):
+    print(account)
     command = ['/opt/zimbra/bin/zmmailbox', '-z', '-m', account, 'gaf', '-v']
     folders = Popen(command, stdout=PIPE)
     cmd_response = ''
@@ -34,15 +34,15 @@ if __name__ == '__main__':
     threads = list()
     filepath = sys.argv[1]
     if file is not None:
-        with open(filepath) as fp:
-            for cnt, line in enumerate(fp):
-                # process_account(account)
-                th = threading.Thread(name=line.strip(), target=task, args=(line.strip(),))
-                th.daemon = True
-                threads.append(th)
-            for thread in threads:
-                thread.start()
-            for thread in threads:
-                thread.join()
+        fp = open(filepath)
+        for cnt, line in enumerate(fp):
+            # process_account(account)
+            th = threading.Thread(name=line.strip(), target=task, args=(line.strip(),))
+            th.daemon = True
+            threads.append(th)
+        for thread in threads:
+            thread.start()
+        for thread in threads:
+            thread.join()
     else:
         print('filepath not provided')
