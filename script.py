@@ -33,7 +33,7 @@ if __name__ == '__main__':
     smphr = threading.Semaphore(value=5)
     threads = list()
     filepath = sys.argv[1]
-    if file is not None:
+    if filepath is not None:
         fp = open(filepath)
         for cnt, line in enumerate(fp):
             # process_account(account)
