@@ -1,11 +1,13 @@
 import sys
 import threading
 from subprocess import PIPE, Popen
-import json
+#import json
+import simplejson as json
 
 def storepath(path):
    hs = open("allsharedpath.txt","a")
    hs.write(path)
+   hs.write("\n")
    hs.close()
 
 def process_account(account):
@@ -24,13 +26,15 @@ def process_account(account):
 
 def task(account):
     smphr.acquire()
-    print("Start process for {0}".format(threading.currentThread().getName()))
+#    print("Start process for {0}".format(threading.currentThread().getName()))
+    print("Start process for %s ") % threading.currentThread().getName()
     process_account(account)
-    print("Exiting process for {0}".format(threading.currentThread().getName()))
+#    print("Exiting process for {0}".format(threading.currentThread().getName()))
+    print("Exiting process for %s ") % threading.currentThread().getName()
     smphr.release()
 
 if __name__ == '__main__':
-    smphr = threading.Semaphore(value=5)
+    smphr = threading.Semaphore(value=2)
     threads = list()
     filepath = sys.argv[1]
     if filepath is not None:
