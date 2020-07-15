@@ -21,8 +21,8 @@ def process_account(account):
     if "subFolders" in json_response and len(json_response['subFolders']) > 0:
         for item in json_response['subFolders']:
             if item['defaultView'] == "message":
-                if 'ownerId' in item and not item['ownerDisplayName'] == account:
-                    storepath(item["pathURLEncoded"])
+                if 'ownerId' in item:
+                    storepath(item["pathURLEncoded"]+";"+item['ownerDisplayName'])
 
 def task(account):
     smphr.acquire()
